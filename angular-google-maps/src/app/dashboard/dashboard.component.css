@@ -1,0 +1,17 @@
+.btn {
+    position: fixed;
+    left: 0px;
+    margin: 3rem;
+}
+
+.container-google-map {
+top: 50px;
+position: relative;
+}
+
+.topleft {
+position: absolute;
+top: 8px;
+left: 16px;
+font-size: 18px;
+}

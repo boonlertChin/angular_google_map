@@ -1,0 +1,236 @@
+<div class="container-google-map">
+    <google-map height="95vh" width="100%" [options]="options">
+        @for (obj of arrayOnTmsRealtimeRender; track obj; let index = $index) {
+        <map-advanced-marker
+        #markerElem="mapAdvancedMarker"
+        [position]="{ lat: obj.lat, lng: obj.lng }"
+        [content]="obj.content"
+        [title]="obj.license"
+        (mapClick)="onMarkerClick(markerElem,obj.license,obj.workcode)"
+        />
+        } 
+        <!-- @for (location of auLocations; track location; let index = $index) {
+        <map-advanced-marker
+        #markerElem="mapAdvancedMarker"
+        [position]="{ lat: location.lat, lng: location.lng }"
+        [content]="location.content"
+        [title]="'Location ' + (index + 1)"
+        (mapClick)="onMarkerClick(markerElem)"
+        />
+        } -->
+        <map-info-window #infoWindow></map-info-window>
+    </google-map>
+    <div class="topleft">
+        <button class="fab" data-bs-toggle="modal" data-bs-target="#exampleModal" ><i class="bi bi-filter"></i></button>
+        <!-- <button class="fab"><i class="bi bi-search"></i></button>
+        <button class="fab"><i class="bi bi-search"></i></button>
+        <button class="fab"><i class="bi bi-search"></i></button> -->
+    </div>
+    <div class="fixed-bottom">
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        ข้อมูลงาน
+                        </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <div class="container">
+                                <div class="row">
+                                  <div class="col">
+                                    <div class="row">
+                                        <label class="col-sm-4 col-form-label text-end">งาน:</label>
+                                        <div class="col-sm-8">
+                                          <input type="text" readonly class="form-control-plaintext text-info" [(ngModel)]="workInfoWorkCode">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-4 col-form-label text-end">สถานที่รับ:</label>
+                                        <div class="col-sm-8">
+                                          <input type="text" readonly class="form-control-plaintext text-info" [(ngModel)]="workInfoStartDpName">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-4 col-form-label text-end">สถานที่ส่ง:</label>
+                                        <div class="col-sm-8">
+                                          <input type="text" readonly class="form-control-plaintext text-info" [(ngModel)]="workInfoEndDpName">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-4 col-form-label text-end">รายละเอียด:</label>
+                                        <div class="col-sm-8">
+                                          <input type="text" readonly class="form-control-plaintext text-info" [(ngModel)]="workInfoDescription">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-4 col-form-label text-end">ประเภทงาน:</label>
+                                        <div class="col-sm-8">
+                                          <input type="text" readonly class="form-control-plaintext text-info" [(ngModel)]="workInfoShipmentType">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-4 col-form-label text-end">Order Number:</label>
+                                        <div class="col-sm-8">
+                                          <input type="text" readonly class="form-control-plaintext text-info" [(ngModel)]="workInfoOrderNumber">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-4 col-form-label text-end">รหัสลูกค้า:</label>
+                                        <div class="col-sm-8">
+                                          <input type="text" readonly class="form-control-plaintext text-info" [(ngModel)]="workInfoCustomerRef">
+                                        </div>
+                                    </div>
+                                  </div>
+                                  <div class="col">
+                                    <div class="row">
+                                        <label class="col-sm-4 col-form-label text-end">สถานะ:</label>
+                                        <div class="col-sm-8">
+                                          <input type="text" readonly class="form-control-plaintext text-info" [(ngModel)]="workInfoShipmentStatus">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-4 col-form-label text-end">เวลารับ:</label>
+                                        <div class="col-sm-8">
+                                          <input type="text" readonly class="form-control-plaintext text-info" [(ngModel)]="workInfoStartTime">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-4 col-form-label text-end">เวลาส่ง:</label>
+                                        <div class="col-sm-8">
+                                          <input type="text" readonly class="form-control-plaintext text-info" [(ngModel)]="workInfoEndTime">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-4 col-form-label text-end">เวลาที่จะถึงโดยประมาณ:</label>
+                                        <div class="col-sm-8">
+                                          <input type="text" readonly class="form-control-plaintext text-info" [(ngModel)]="workInfoEstimateTime">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-4 col-form-label text-end">เวลาที่คาดว่าจะล่าช้า:</label>
+                                        <div class="col-sm-8">
+                                          <input type="text" readonly class="form-control-plaintext text-info" [(ngModel)]="workInfoDelayTime">
+                                        </div>
+                                    </div>
+                                    
+                                  </div>                                  
+                                </div>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">workcode</label>
+                <div class="col-sm-10">
+                    <input class="form-control" list="datalistOptionsWorkCode" [(ngModel)]="inputWorkCode" id="idInputWorkCode" placeholder="Type to search...">
+                    <datalist id="datalistOptionsWorkCode">
+                        @for (c of listWorkCode; track c) {
+                            <option value="{{c}}">
+                        }
+                    </datalist>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label"> ทะเบียนรถ</label>
+                <div class="col-sm-10">
+                    <input class="form-control" list="datalistOptionsLicense" [(ngModel)]="inputLicense" id="idInputWorkCode" placeholder="Type to search...">
+                    <datalist id="datalistOptionsLicense">
+                        @for (c of listLicense; track c) {
+                            <option value="{{c}}">
+                        }
+                    </datalist>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Order Number</label>
+                <div class="col-sm-10">
+                    <input class="form-control" list="datalistOptionsOrderNumber" [(ngModel)]="inputOrderNumber" id="idInputWorkCode" placeholder="Type to search...">
+                    <datalist id="datalistOptionsOrderNumber">
+                        @for (c of listOrderNumber; track c) {
+                            <option value="{{c}}">
+                        }
+                    </datalist>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">สถานที่รับ</label>
+                <div class="col-sm-10">
+                    <input class="form-control" list="datalistOptionsStartName" [(ngModel)]="inputStartName" id="idInputStartName" placeholder="Type to search...">
+                    <datalist id="datalistOptionsStartName">
+                        <datalist id="datalistOptionsWorkCode">
+                            @for (c of listStartName; track c) {
+                                <option value="{{c}}">
+                            }
+                        </datalist>
+                    </datalist>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">สถานที่ส่ง</label>
+                <div class="col-sm-10">
+                    <input class="form-control" list="datalistOptionsEndName" [(ngModel)]="inputEndName" id="idInputEndName" placeholder="Type to search...">
+                    <datalist id="datalistOptionsEndName">
+                        @for (c of listEndName; track c) {
+                            <option value="{{c}}">
+                        }
+                    </datalist>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">ประเภทงาน</label>
+                <div class="col-sm-10">
+                    <select class="form-select" [(ngModel)]="inputShipmentType">
+                        @for (c of listShipmentType; track c){
+                            <option value="{{c.key}}">{{c.display}}</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            
+            <button type="button" (click)="onClickFilter()">ค้นหา</button>
+        </div>
+        <div class="modal-body">            
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">งาน</th>
+                      <th scope="col">ทะเบียนรถ</th>
+                      <th scope="col">สถานะงาน</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (e of listResultFilter; track e) {
+                        <tr>
+                            <th scope="row">
+                                <input class="form-check-input" type="checkbox" checked (change)="onCheckListResultFilter(e)">
+                            </th>
+                            <td>{{e.workcode}}</td>
+                            <td>{{e.license}}</td>
+                            <td>{{e.statusname}}</td>
+                        </tr>
+                    }
+                  </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+          <!-- <button type="button" data-bs-dismiss="modal">ยกเลิก</button> -->
+          <button type="button" data-bs-dismiss="modal" (click)="onClickConfirmFilter()">ยืนยัน</button>
+        </div>
+      </div>
+    </div>
+</div>

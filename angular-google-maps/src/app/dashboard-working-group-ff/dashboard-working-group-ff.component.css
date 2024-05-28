@@ -1,0 +1,31 @@
+.btn {
+    position: fixed;
+    left: 0px;
+    margin: 3rem;
+}
+
+.container-google-map {
+top: 50px;
+position: relative;
+}
+
+.topleft {
+position: absolute;
+top: 8px;
+right: 10px;
+font-size: 18px;
+}
+
+.fab {
+    background-color: #23a6ec; /* Red color, customize as needed */
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Creates a circle */
+    color: white;
+    font-size: 24px; /* Adjust font size for your icon */
+    bottom: 20px; /* Adjust the distance from the bottom edge */
+    right: 20px; /* Adjust the distance from the right edge */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Adds a slight shadow */
+    cursor: pointer; /* Changes cursor to pointer on hover */
+    transition: all 0.3s ease-in-out; /* Adds a smooth transition effect */
+  }
